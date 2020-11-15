@@ -275,6 +275,8 @@ class EfficientNet(nn.Module):
         for idx, block in enumerate(self._blocks):
             if idx == 15:
                break
+            print('idx', idx)
+            print('block', block)
                
             drop_connect_rate = self._global_params.drop_connect_rate
             if drop_connect_rate:
