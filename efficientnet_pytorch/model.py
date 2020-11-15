@@ -273,7 +273,7 @@ class EfficientNet(nn.Module):
 
         # Blocks
         for idx, block in enumerate(self._blocks):
-            if idx == 14:
+            if idx == 15:
                break
                
             drop_connect_rate = self._global_params.drop_connect_rate
