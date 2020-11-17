@@ -272,7 +272,7 @@ class EfficientNet(nn.Module):
         x = self._swish(self._bn0(self._conv_stem(inputs)))
 
         # Blocks
-        for idx, block in enumerate(self._blocks[:-self.blocks_to_skip):
+        for idx, block in enumerate(self._blocks[:-self.blocks_to_skip]:
             drop_connect_rate = self._global_params.drop_connect_rate
             if drop_connect_rate:
                 drop_connect_rate *= float(idx) / len(self._blocks) # scale drop connect_rate
