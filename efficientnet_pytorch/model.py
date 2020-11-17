@@ -272,7 +272,7 @@ class EfficientNet(nn.Module):
         x = self._swish(self._bn0(self._conv_stem(inputs)))
 
         # Blocks
-        for idx, block in enumerate(self._blocks[:-11]):
+        for idx, block in enumerate(self._blocks[:-self.blocks_to_skip):
             drop_connect_rate = self._global_params.drop_connect_rate
             if drop_connect_rate:
                 drop_connect_rate *= float(idx) / len(self._blocks) # scale drop connect_rate
@@ -326,7 +326,7 @@ class EfficientNet(nn.Module):
 
     @classmethod
     def from_pretrained(cls, model_name, weights_path=None, advprop=False,
-                        in_channels=3, num_classes=1000, **override_params):
+                        in_channels=3, num_classes=1000, blocks_to_skip=0**override_params):
         """create an efficientnet model according to name.
         Args:
             model_name (str): Name for efficientnet.
@@ -354,6 +354,7 @@ class EfficientNet(nn.Module):
         model = cls.from_name(model_name, num_classes=num_classes, **override_params)
         load_pretrained_weights(model, model_name, weights_path=weights_path, load_fc=(num_classes == 1000), advprop=advprop)
         model._change_in_channels(in_channels)
+        model.blocks_to_skip = blocks_to_skip
         return model
 
     @classmethod
